@@ -104,7 +104,6 @@ export const RATE_LIMITS = {
   contactForm: { limit: 3, windowSeconds: 60 },
   serviceRequest: { limit: 10, windowSeconds: 60 * 60 },
   couponApply: { limit: 10, windowSeconds: 60 },
-  pushSubscribe: { limit: 5, windowSeconds: 60 },
   apiDefault: { limit: 60, windowSeconds: 60 },
 } as const;
 

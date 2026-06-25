@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getFlaggedRequestLogsAction, getPushStatsAction } from "@/actions/admin";
+import { getFlaggedRequestLogsAction } from "@/actions/admin";
 
 export default function SecurityClient() {
   const [logs, setLogs] = useState<any[]>([]);
-  const [pushStats, setPushStats] = useState<{ subscribers: number; sentLast30Days: number } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getFlaggedRequestLogsAction(), getPushStatsAction()]).then(([l, p]) => {
+    getFlaggedRequestLogsAction().then((l) => {
       if (l.success) setLogs(l.data!);
-      if (p.success) setPushStats(p.data!);
       setLoading(false);
     });
   }, []);
@@ -21,14 +19,6 @@ export default function SecurityClient() {
   return (
     <>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px,1fr))", gap: 16, marginBottom: 24 }}>
-        <div style={{ background: "#FFF", border: "1px solid #E2E8F0", borderRadius: 14, padding: 20 }}>
-          <div style={{ fontSize: 12, color: "#94A3B8", marginBottom: 6 }}>Inscritos em push</div>
-          <div style={{ fontSize: 24, fontWeight: 800 }}>{pushStats?.subscribers ?? 0}</div>
-        </div>
-        <div style={{ background: "#FFF", border: "1px solid #E2E8F0", borderRadius: 14, padding: 20 }}>
-          <div style={{ fontSize: 12, color: "#94A3B8", marginBottom: 6 }}>Notificações (30 dias)</div>
-          <div style={{ fontSize: 24, fontWeight: 800 }}>{pushStats?.sentLast30Days ?? 0}</div>
-        </div>
         <div style={{ background: "#FFF", border: "1px solid #E2E8F0", borderRadius: 14, padding: 20 }}>
           <div style={{ fontSize: 12, color: "#94A3B8", marginBottom: 6 }}>Requisições suspeitas</div>
           <div style={{ fontSize: 24, fontWeight: 800, color: logs.length > 0 ? "#DC2626" : "#0F172A" }}>{logs.length}</div>

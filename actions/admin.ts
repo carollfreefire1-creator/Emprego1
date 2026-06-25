@@ -624,24 +624,6 @@ export async function listReferralsAction(): Promise<ActionResult<any[]>> {
   }
 }
 
-// ── PUSH / NOTIFICAÇÕES ────────────────────────────────────────────
-export async function getPushStatsAction(): Promise<ActionResult<{ subscribers: number; sentLast30Days: number }>> {
-  try {
-    await requireAdmin();
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    const [subscribers, sentLast30Days] = await Promise.all([
-      prisma.pushSubscription.count(),
-      prisma.notification.count({ where: { sentAt: { gte: thirtyDaysAgo } } }),
-    ]);
-    return { success: true, data: { subscribers, sentLast30Days } };
-  } catch (err) {
-    console.error("[getPushStatsAction]", err);
-    return { success: false, error: "Erro ao buscar estatísticas de notificações" };
-  }
-}
-
 // ── SEGURANÇA / LOGS DE REQUISIÇÃO ────────────────────────────────
 export async function getFlaggedRequestLogsAction(): Promise<ActionResult<any[]>> {
   try {
