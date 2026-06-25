@@ -1,0 +1,17 @@
+[agent]
+expertMode = true
+stack = "BEST_EFFORT_FALLBACK"
+
+[nix]
+channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+NEXT_PUBLIC_APP_URL = "https://7ad32506-9fe6-472e-8605-c78875625a98-00-1ulzd9s5adgno.picard.replit.dev"
+NEXT_PUBLIC_VAPID_PUBLIC_KEY = ""
+VAPID_SUBJECT = "mailto:contato@sosservicos.com.br"
+RATE_LIMIT_ENABLED = "true"
+HONEYPOT_FIELD_NAME = "website_confirm"
+CRON_SECRET = "dev-cron-secret-change-in-prod"
+DPO_EMAIL = "privacidade@sosservicos.com.br"
