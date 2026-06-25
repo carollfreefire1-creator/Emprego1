@@ -3,7 +3,6 @@ import { createServerClient } from "@supabase/ssr";
 import { rateLimit, getClientIp, RATE_LIMITS } from "@/lib/rate-limit";
 
 const RATE_LIMITED_PREFIXES: Array<{ prefix: string; preset: keyof typeof RATE_LIMITS }> = [
-  { prefix: "/api/push/subscribe", preset: "pushSubscribe" },
   { prefix: "/api/coupons/apply", preset: "couponApply" },
   { prefix: "/api/contato", preset: "contactForm" },
   { prefix: "/api/requests", preset: "serviceRequest" },
@@ -80,7 +79,6 @@ export const config = {
     "/conta/:path*",
     "/login",
     "/cadastro",
-    "/api/push/:path*",
     "/api/coupons/:path*",
     "/api/contato/:path*",
     "/api/requests/:path*",

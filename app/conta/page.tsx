@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
-import NotificationToggle from "@/components/NotificationToggle";
 import LogoutButton from "@/components/LogoutButton";
 
 export const metadata: Metadata = {
@@ -30,14 +29,6 @@ export default async function AccountHomePage() {
         Olá, {dbUser?.name?.split(" ")[0] ?? "tudo bem"}
       </h1>
       <p className="mb-8 text-slate-500 dark:text-slate-400">{authUser.email}</p>
-
-      <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
-        <h2 className="mb-2 font-semibold text-slate-900 dark:text-white">Notificações</h2>
-        <p className="mb-3 text-sm text-slate-500 dark:text-slate-400">
-          Receba avisos sobre propostas e atualizações dos seus pedidos.
-        </p>
-        <NotificationToggle />
-      </div>
 
       <div className="space-y-2">
         {LINKS.map((link) => (

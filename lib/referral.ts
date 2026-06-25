@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { sendPushToUser } from "@/lib/push";
 
 const REFERRAL_REWARD_CENTS = 2000; // R$ 20,00 em crédito por indicação completada
 
@@ -39,14 +38,6 @@ export async function rewardReferralIfEligible(referredUserId: string) {
     where: { id: pending.id },
     data: { status: "rewarded", rewardedAt: new Date() },
   });
-
-  await sendPushToUser(pending.referrerId, {
-    title: "Você ganhou uma recompensa! 🎉",
-    body: `Seu indicado completou o primeiro serviço. R$ ${(
-      pending.rewardCents / 100
-    ).toFixed(2)} em crédito foram liberados.`,
-    url: "/conta/indicacoes",
-  }).catch(() => {});
 
   return updated;
 }
